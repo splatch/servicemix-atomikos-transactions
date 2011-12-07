@@ -1,0 +1,18 @@
+To test everything I created two databases with table called users. One have unique check, second doesn't. So first save works, 2nd throws exception and causes rollback. Structure is below.
+
+For postgresql:
+
+CREATE TABLE users
+(
+  id serial NOT NULL,
+  name character varying,
+  CONSTRAINT users_pkey PRIMARY KEY (id),
+  CONSTRAINT users_name_key UNIQUE (name)
+);
+
+CREATE TABLE users
+(
+  id serial NOT NULL,
+  name character varying,
+  CONSTRAINT users_pkey PRIMARY KEY (id)
+);

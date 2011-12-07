@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.osgi.org/xmlns/blueprint/v1.0.0
+        http://www.osgi.org/xmlns/blueprint/v1.0.0
+        http://camel.apache.org/schema/blueprint
+        http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+    ">
+
+    <bean id="enhydraDataSource1" class="bitronix.tm.resource.jdbc.PoolingDataSource" init-method="init" destroy-method="close">
+        <property name="className" value="oracle.jdbc.xa.client.OracleXADataSource" />
+        <property name="uniqueName" value="fenix1" />
+        <property name="maxPoolSize" value="5" />
+        <property name="testQuery" value="SELECT 1 FROM DUAL" />
+        <property name="driverProperties">
+            <props>
+                <prop key="user" value="fenix1" />
+                <prop key="password" value="neon1" />
+                <prop key="URL" value="jdbc:oracle:thin:@172.16.211.132:1521:XE" />
+            </props>
+        </property>
+    </bean>
+
+    <bean id="enhydraDataSource2" class="bitronix.tm.resource.jdbc.PoolingDataSource" init-method="init" destroy-method="close">
+        <property name="className" value="oracle.jdbc.xa.client.OracleXADataSource" />
+        <property name="uniqueName" value="fenix2" />
+        <property name="maxPoolSize" value="5" />
+        <property name="testQuery" value="SELECT 1 FROM DUAL" />
+        <property name="driverProperties">
+            <props>
+                <prop key="user" value="fenix2" />
+                <prop key="password" value="neon2" />
+                <prop key="URL" value="jdbc:oracle:thin:@172.16.211.132:1521:XE" />
+            </props>
+        </property>
+    </bean>
+
+
+</blueprint>

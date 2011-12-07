@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.code-house.workshop</groupId>
+        <artifactId>camel</artifactId>
+        <version>1.0.0.SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.code-house.workshop.camel</groupId>
+    <artifactId>jta</artifactId>
+    <name>Code-House :: Workshop :: Camel :: JTA</name>
+
+    <packaging>bundle</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-sql</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+		<dependency>
+		    <groupId>org.codehaus.btm</groupId>
+		    <artifactId>btm</artifactId>
+		    <version>2.1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.atomikos</groupId>
+		    <artifactId>transactions-jdbc</artifactId>
+		    <version>3.6.4</version>
+		</dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Import-Package>
+                            *,
+                            org.apache.camel.impl;version=2.7.0,
+                            org.apache.camel.component.jms;version=2.7.0,
+                            org.apache.camel.spring.spi;version=2.7.0,
+                            org.postgresql,
+                            org.postgresql.xa,
+                            org.postgresql.ds
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

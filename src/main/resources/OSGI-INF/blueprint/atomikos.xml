@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.osgi.org/xmlns/blueprint/v1.0.0
+        http://www.osgi.org/xmlns/blueprint/v1.0.0
+        http://camel.apache.org/schema/blueprint
+        http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+    ">
+
+<!-- 	<bean id="localLogAdministrator" class="com.atomikos.icatch.admin.imp.LocalLogAdministrator" /> -->
+
+	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+		init-method="init" destroy-method="shutdownForce">
+		<argument>
+			<props>
+				<prop key="com.atomikos.icatch.service"
+					value="com.atomikos.icatch.standalone.UserTransactionServiceFactory" />
+			</props>
+		</argument>
+<!-- 		<property name="initialLogAdministrators"> -->
+<!-- 			<list> -->
+<!-- 				<ref component-id="localLogAdministrator" /> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+	</bean>
+
+	<bean id="AtomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close" depends-on="userTransactionService">
+		<property name="startupTransactionService" value="false" />
+		<property name="forceShutdown" value="false" />
+	</bean>
+
+	<bean id="AtomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"
+		depends-on="userTransactionService">
+		<property name="transactionTimeout" value="300" />
+	</bean>
+
+	<bean id="ConnectionFactory" class="com.atomikos.jms.AtomikosConnectionFactoryBean" init-method="init" destroy-method="close">
+		<property name="uniqueResourceName" value="amq1" />
+		<property name="xaConnectionFactory" ref="AmqXaCF" />
+	</bean>
+
+</blueprint>
